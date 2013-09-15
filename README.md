@@ -1,11 +1,11 @@
 py-unicode
 ==========
 
-python unicode and encoding code
+#python unicode and encoding code
 代码基于python33，深入了解一些关于python3.x中unicode以及encoding方面相应的知识
 
 一些相关的知识点：
-#open状态rb对应的是_io.BufferedReader,r对应的是_io.TextIOWrapper
+open状态rb对应的是_io.BufferedReader,r对应的是_io.TextIOWrapper
 class io.TextIOWrapper(buffer, encoding=None, errors=None, newline=None, 
 line_buffering=False)
 A buffered text stream over a BufferedIOBase binary stream. It inherits TextIOBase.
