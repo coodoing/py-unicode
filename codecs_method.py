@@ -152,15 +152,15 @@ if __name__ == '__main__':
     
     print('################################################################')    
     path = 'encoding'
-    french_unicode = path+'/unicode/'+'french-unicode.txt'
-    french_utf8 = path+'/utf8/'+'french-utf8.txt'
-    french_mscs = path+'/mscs/'+'french-mscs.txt'
+    french_unicode_txt = path+'/unicode/'+'french-unicode.txt'
+    french_utf8_txt = path+'/utf8/'+'french-utf8.txt'
+    french_mscs_txt = path+'/mscs/'+'french-mscs.txt'
     print('<strong>文件操作：')
     print('########################')
     print('<strong>codecs.open方式打开文件：')
-    open_file_codecs('french-unicode.txt')
-    open_file_codecs('french-mscs.txt')
-    open_file_codecs('french-utf8.txt')
+    open_file_codecs(french_unicode_txt)
+    open_file_codecs(french_mscs_txt)
+    open_file_codecs(french_utf8_txt)
     open_file_codecs(path+'/open-test.txt')
     encode_decode_file(path+'/append-test.txt')
 
