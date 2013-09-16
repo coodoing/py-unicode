@@ -156,6 +156,9 @@ http://www.diveinto.org/python3/files.html
 * py33 io (buffering):
 http://docs.python.org/3.1/library/io.html#io.TextIOWrapper
 
+* py33 shutil(high-level operations on files):
+http://docs.python.org/3.3/library/shutil.html
+
 PEP and ISSUES:
 
 
