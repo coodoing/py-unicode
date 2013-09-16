@@ -158,9 +158,9 @@ if __name__ == '__main__':
     print('<strong>文件操作：')
     print('########################')
     print('<strong>codecs.open方式打开文件：')
-    open_file_codecs(french_unicode_txt)
-    open_file_codecs(french_mscs_txt)
-    open_file_codecs(french_utf8_txt)
+    open_file_codecs('french-unicode.txt')#(french_unicode_txt)
+    open_file_codecs('french-mscs.txt')#(french_mscs_txt)
+    open_file_codecs('french-utf8.txt')#(french_utf8_txt)
     open_file_codecs(path+'/open-test.txt')
     encode_decode_file(path+'/append-test.txt')
 
