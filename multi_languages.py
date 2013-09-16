@@ -243,6 +243,12 @@ class LanguageHandler(object):
 
 	pass
 
+#shutil的备份
+def bak_shutil():
+        
+        pass
+        
+
 '''
 	系统中的自定义变量
 '''
@@ -251,6 +257,7 @@ tags =['TXT_EMAIL']
 #tags = ["APPEND_NEW_TAGS_11","APPEND_NEW_TAGS_12"] #新添加的tag字段
 file_change = "lang.txt" #修改的file文件
 output_dir = "encoding/languages"
+bak_dir = 'encoding/tmp'
 
 if __name__ == '__main__':
 	print(sys.getdefaultencoding())
