@@ -159,6 +159,8 @@ http://docs.python.org/3.1/library/io.html#io.TextIOWrapper
 * py33 shutil(high-level operations on files):
 http://docs.python.org/3.3/library/shutil.html
 
+* codecs源码:（C:\Python33\Lib\codecs.py）
+
 PEP and ISSUES:
 
 
@@ -179,3 +181,12 @@ http://www.python.org/dev/peps/pep-0393/#discussion
 
 PEP0263: Defining Python Source Code Encodings
 http://www.python.org/dev/peps/pep-0263/
+
+
+p.s.
+
+
+----------
+* sublime3/2的错误编码
+
+（由于sublime自身的编码原因，所以可能造成在ctrl+b编译的过程中，对多语言的编码出现错误）
