@@ -1,2 +1,2 @@
-define('APPEND_NEW_TAGS_32', "Email address")
+define('APPEND_NEW_TAGS_31', "Email address")
 define('APPEND_NEW_TAGS_32', "Adresse mail")
