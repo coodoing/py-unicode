@@ -1,0 +1,4 @@
+define('TXT_EMAIL', "Emailcím")
+
+define('APPEND_NEW_TAGS', "Emailcím")
+

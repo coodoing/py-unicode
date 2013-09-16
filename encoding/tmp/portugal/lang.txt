@@ -1,0 +1,4 @@
+define('TXT_EMAIL', "Endereço de email")
+
+define('APPEND_NEW_TAGS', "Endereço de email")
+

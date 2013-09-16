@@ -4,7 +4,10 @@ import re,sys,os
 import codecs,locale
 import xdrlib,xlrd
 import getopt
-import glob,shutil
+import glob
+from shutil import copytree, ignore_patterns
+from fdshutil import FileBak
+
 
 lang = {}
 def set_global_languages():
@@ -191,6 +194,7 @@ class LanguageHandler(object):
 		    	#for k in range(0,len(new_tags)):
 		    	   	#self.file_handler.write_file("encoding/language-test.txt",output_string)
 	    print("append successful!\n")
+	    return True
 
 	'''
 		判断文件中是否存在tag
@@ -261,11 +265,20 @@ bak_dir = 'encoding/tmp'
 
 if __name__ == '__main__':
 	print(sys.getdefaultencoding())
-	set_global_languages()	
+	set_global_languages()
+
+	bak = FileBak(output_dir,bak_dir)
+	try:
+		bak.copy()
+	except WindowsError:
+		print('copy error')
+
 	lang_handler = LanguageHandler(lang,tags,file_change,excel_name,output_dir)	
 	#print(lang_handler.has_tags('encoding/language-test.txt','APPEND_NEW_TAGS_32'))
 	#print(lang_handler.has_tags('encoding/language-test.txt','APPEND_NEW_TAGS_42'))
 	#print(lang_handler.get_new_tags('encoding/language-test.txt',tags))
 	#lang_handler.get_languages()
 	#lang_handler.open_excel()
-	lang_handler.append_tags()
+	ret = lang_handler.append_tags()
+	if ret == False:
+		bak.rm()
