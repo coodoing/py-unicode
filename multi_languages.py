@@ -181,8 +181,8 @@ class LanguageHandler(object):
 		    	if  flags == 0:
 		    		#self.file_handler.write_file(language_output_files[j],output_string)
 		    		try:		    			
-		    			#output = self.output_dir+"/encoding/language-test.txt"
-		    			#self.file_handler.write_file("encoding/language-test.txt",output_string)
+		    			#output = self.output_dir+"/encoding/languages/language-test.txt"
+		    			#self.file_handler.write_file("encoding/languages/language-test.txt",output_string)
 		    			self.file_handler.write_file(language_output_files[j],output_string)    
 		    		except Exception:
 		    			raise "write file error"
@@ -266,9 +266,9 @@ if __name__ == '__main__':
 	set_global_languages()	
 	lang_handler = LanguageHandler(lang,tags,file_change,excel_name,output_dir)
 	
-	print(lang_handler.has_tags('encoding/language-test.txt','APPEND_NEW_TAGS_32'))
-	#print(lang_handler.has_tags('encoding/language-test.txt','APPEND_NEW_TAGS_42'))
-	#print(lang_handler.get_new_tags('encoding/language-test.txt',tags))
+	print(lang_handler.has_tags('encoding/languages/language-test.txt','APPEND_NEW_TAGS_32'))
+	#print(lang_handler.has_tags('encoding/languages/language-test.txt','APPEND_NEW_TAGS_42'))
+	#print(lang_handler.get_new_tags('encoding/languages/language-test.txt',tags))
 	#lang_handler.get_languages()
 	#lang_handler.open_excel()
 	lang_handler.append_tags()

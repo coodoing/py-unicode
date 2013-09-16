@@ -1,7 +1,0 @@
-define('APPEND_NEW_TAGS_11', 'Notify me when deals go on sale:')
-define('APPEND_NEW_TAGS_32', "Email address")
-
-define('APPEND_NEW_TAGS_31', "Notify me when deals go on sale:")define('APPEND_NEW_TAGS_00', "Notify me when deals go on sale:")
-define('APPEND_NEW_TAGS_00', "Notify me when deals go on sale:")
-define('APPEND_NEW_TAGS_00', "Notifiez-moi quand des deals sont mis en vente:")
-define('APPEND_NEW_TAGS_32', "Adresse mail")

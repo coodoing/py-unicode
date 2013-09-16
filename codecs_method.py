@@ -158,23 +158,23 @@ if __name__ == '__main__':
     print('<strong>文件操作：')
     print('########################')
     print('<strong>codecs.open方式打开文件：')
-    open_file_codecs('french-unicode.txt')#(french_unicode_txt)
-    open_file_codecs('french-mscs.txt')#(french_mscs_txt)
-    open_file_codecs('french-utf8.txt')#(french_utf8_txt)
+    open_file_codecs(french_unicode_txt)#('french-unicode.txt')
+    open_file_codecs(french_mscs_txt)#('french-mscs.txt')
+    open_file_codecs(french_utf8_txt)#('french-utf8.txt')
     open_file_codecs(path+'/open-test.txt')
     encode_decode_file(path+'/append-test.txt')
 
     print('########################')
     print('<strong>open方式打开文件：')    
-    open_file_text('french-unicode.txt')#需特别注意编码问题，在win7中文系统环境中，默认会提示gbk decode error
-    open_file_text('french-mscs.txt')#默认的保存格式，会造成字符的丢失
-    open_file_text('french-utf8.txt')#不会出问题，但需注意open的encoding格式，否则会出现乱码
+    open_file_text(french_unicode_txt)#需特别注意编码问题，在win7中文系统环境中，默认会提示gbk decode error
+    open_file_text(french_mscs_txt)#默认的保存格式，会造成字符的丢失
+    open_file_text(french_utf8_txt)#不会出问题，但需注意open的encoding格式，否则会出现乱码
 
     print('########################')
     print('<strong>file encoding打开文件：')
-    file_encoding('french-unicode.txt')
-    file_encoding('french-mscs.txt')
-    file_encoding('french-utf8.txt')
+    file_encoding(french_unicode_txt)
+    file_encoding(french_mscs_txt)
+    file_encoding(french_utf8_txt)
 
     print('########################')
     print('<strong>binary写文件：')
@@ -183,7 +183,7 @@ if __name__ == '__main__':
 
     print('########################')
     print('<strong>文件遍历：')
-    path = ['french-utf8.txt']#,'french_mscs.txt']#,'french.txt']
+    path = [french_utf8_txt]#,'french_mscs.txt']#,'french.txt']
     for i in range(0,len(path)):
         open_file_text(path[i])
 
