@@ -63,3 +63,116 @@ defaults to locale.getpreferredencoding().
 如果是在utf8的文件中，该字符串就是utf8编码，如果是在gb2312的文件中，则其编码为gb2312。这
 种情况下，要进行编码转换，都需要先用decode方法将其转换成unicode编码，再使用encode方法将
 其转换成其他编码。通常，在没有指定特定的编码方式时，都是使用的系统默认编码创建的代码文件
+
+
+###3 相关代码
+
+python默认编码
+```
+    default encodings in Python are:
+    Python 2.x: ASCII
+    Python 3.x: UTF-8
+```
+win7中文环境中对应的系统参数
+```
+    print('<strong>python系统参数：')
+    print(locale.getdefaultlocale()) #('zh_CN', 'cp936')
+    print(locale.getpreferredencoding()) # cp936
+    print(sys.getdefaultencoding()) #utf-8
+    print(sys.getfilesystemencoding())#mbcs
+    print(sys.maxunicode)
+    print(codecs.lookup('utf-8'))#codeinfo class
+
+```
+
+```
+    ('zh_CN', 'cp936')
+    cp936
+    utf-8
+    mbcs
+    1114111
+```
+utf-8, gbk codecs error
+```
+    ch_str = '中文'
+    try:
+        codecs_decode(codecs_encode(ch_str,'gbk'))
+    except Exception:
+        print('<strong>utf-8 codec decode error')
+
+    codecs_decode(codecs_encode('1ère Recuérdame Ã©couteur Ã§a'))
+    codecs_decode(codecs_encode('1ère Recuérdame Ã©couteur Ã§a'),'gbk')
+    try:
+        codecs_decode(codecs_encode('1ère','gbk'))
+    except Exception:
+        print('<strong>utf-8 codec decode error')
+
+    code_str = '中国'
+    print(code_str.encode().decode())
+    print(code_str.encode().decode('mbcs','ignore'))
+    try:
+        print(code_str.encode().decode('gbk','strict'))
+    except Exception:
+        print('<strong>gbk codec decode error')
+```
+
+binary写文件
+```
+
+#write french in file
+def write_file(filename):
+    with open(filename,'wb') as file:
+        file.write('ry dialect: /a/, /ɑ/, /e/, /ɛ/, /ə/, /i/, /o/, /ɔ/, /'.encode())
+
+def write_file_append(filename,string):
+    line_list = []
+    with open(filename,'rb') as file:
+        for line in file:
+            line_list.append(line)
+
+    with open(filename,'wb') as file:
+        for i in range(len(line_list)):
+            file.write(line_list[i])
+
+        file.write(string.encode())
+```
+
+
+###4 参考资料
+* python unicode howto:(unicode codepoints): http://docs.python.org/3/howto/unicode.html
+
+* python unicode&encoding: http://docs.python.org/3.3/library/codecs.html#encodings-and-unicode
+
+* unicode further reading : http://www.diveinto.org/python3/strings.html#py-encoding
+
+* new in the python3.0:
+http://docs.python.org/3.0/whatsnew/3.0.html#text-vs-data-instead-of-unicode-vs-8-bit
+
+* codecs test: http://pymotw.com/2/codecs/
+
+* py33 file (locale.getpreferredencoding()):
+http://www.diveinto.org/python3/files.html
+
+* py33 io (buffering):
+http://docs.python.org/3.1/library/io.html#io.TextIOWrapper
+
+PEP and ISSUES:
+
+
+----------
+* ISSUES:
+ 
+distutils.commands.bdist_wininst.bdist_wininst.get_inidata use mdcs encoding
+http://bugs.python.org/issue10945
+
+bytes.decode('mbcs', 'ignore') does replace undecodable bytes on Windows Vista or later
+http://bugs.python.org/issue12281
+
+
+* PEP393：	
+
+Flexible String Representation
+http://www.python.org/dev/peps/pep-0393/#discussion
+
+PEP0263: Defining Python Source Code Encodings
+http://www.python.org/dev/peps/pep-0263/
