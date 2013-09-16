@@ -3,39 +3,45 @@ import locale,sys,codecs,os
 
 '''
     所有基于编码的格式都是在py33环境中进行开发
+    #codecs/io/file class
+    #open() function : has buffering option to use the buffering line  
 '''
 
-def open_file_text(filename):
-    #对于多语言，这里最好别用 encoding = 'utf-8' encoding = 'utf-16_LE'
-    #open function : has buffering influnceing
-    #open(),codecs class，io class
+# codecs.open()打开文件
+def open_file_codecs(filename):
+    with codecs.open(filename,'rb') as file:
+        for line in file:
+            print(line)
 
+def open_file_text(filename):        
     '''
+    默认使用sys.getfilesystemencoding()编码格式打开文件，在window7中文环境中使用CP936（GBK）打开文件
+    所以对于unicode,utf8,mscs的不同编码格式，encoding设置会出问题（utf8 gbk codecs error）
+    对于多语言，这里最好别用 encoding = 'utf-8' encoding = 'utf-16_LE' 
        这里的可能解决方式是：
-       利用codecs.open;（不好用）
-       利用rb，转换成b（unicode）形式，不过在写入的时候需要进行encode操作;（可行）
-       把txt文件转换成UTF-8格式，然后在打开文件的时候指定编码格式utf-8(可行)
+       1 利用codecs.open;这个对于不同的编码格式有问题（不好用）
+       2 利用rb，转换成b（unicode）形式，不过在写入的时候需要进行encode操作;（可行）
+       3 把txt文件转换成UTF-8格式，然后在打开文件的时候指定编码格式utf-8(可行)
+       所以最好的打开方式是以binary方式打开文件，转换成unicode
     ''' 
     with open(filename,'rb') as file:
         for line in file:
             print(line)
 
+
+#二进制方式打开文件，最有效的方式
 def open_file_binary(filename):
-    #open状态rb对应的是_io.BufferedReader,r对应的是_io.TextIOWrapper
+    '''
+    open状态rb对应的是_io.BufferedReader,r对应的是_io.TextIOWrapper
+    '''
     data = open(filename,'rb')#.read()
     print(data.name)
     #print(data.encoding)
     print(data.mode)
     print(data)
 
-def write_file(filename):
-    #line_list = []
-    #with open(filename,'rb') as file:
-    #    for line in file:
-    #        line_list.append(line)
-    with open(filename,'wb') as file:
-        file.write('ry dialect: /a/, /ɑ/, /e/, /ɛ/, /ə/, /i/, /o/, /ɔ/, /'.encode())
-        
+
+#获取文件编码格式  
 def file_encoding(filename):
     data = open(filename,'r')
     print(data.encoding)
@@ -44,6 +50,12 @@ def encode_decode_file(filename):
     data = open(filename,'r')
     de = data.read()
 
+#write file
+def write_file(filename):
+    with open(filename,'wb') as file:
+        file.write('ry dialect: /a/, /ɑ/, /e/, /ɛ/, /ə/, /i/, /o/, /ɔ/, /'.encode())
+
+#append file
 def write_file_append(filename,string):
     line_list = []
     with open(filename,'rb') as file:
@@ -57,14 +69,18 @@ def write_file_append(filename,string):
         file.write(string.encode())
 
 if __name__ == '__main__':
+    print('<strong>python系统参数：')
     print(locale.getdefaultlocale()) #('zh_CN', 'cp936')
     print(locale.getpreferredencoding()) # cp936
     print(sys.getdefaultencoding()) #utf-8
     print(sys.getfilesystemencoding())#mbcs
-    
+    print(codecs.lookup('utf-8'))#codeinfo class
+
+    print('<strong>python长度：')    
     print(len('含'))
     print(len(u'含'))
-
+    
+    print('<strong>python中文编码：')
     code_str = u'中国'
     print(code_str.encode())
     print(code_str.encode('gbk'))
@@ -72,23 +88,38 @@ if __name__ == '__main__':
     print(code_str.encode().decode('mbcs','ignore'))
     #print(code_str.encode().decode('gbk','strict'))
 
-    print(codecs.lookup('utf-8'))
-
+    print('<strong>python正常的编码和解码方式：')
     french = 'ry dialect: /a/, /ɑ/, /e/, /ɛ/, /ə/, /i/, /o/, /ɔ/, /y/, /u/, /œ/, /ø/, '
     print(french.encode())
-    print(french.encode().decode())
-    print('打开文件：')
+    print(french.encode().decode())    
+
+    path = 'encoding'
+    french_unicode = path+'/unicode/'+'french-unicode.txt'
+    french_utf8 = path+'/utf8/'+'french-utf8.txt'
+    french_mscs = path+'/mscs/'+'french-mscs.txt'
+    print('<strong>文件操作：')
+    print('<strong>codecs.open方式打开文件：')
+    open_file_codecs('french-unicode.txt')
+    open_file_codecs('french-mscs.txt')
+    open_file_codecs('french-utf8.txt')
+    open_file_codecs(path+'/open-test.txt')
+    encode_decode_file(path+'/append-test.txt')
+
+    print('<strong>open方式打开文件：')    
     open_file_text('french-unicode.txt')#需特别注意编码问题，在win7中文系统环境中，默认会提示gbk decode error
     open_file_text('french-mscs.txt')#默认的保存格式，会造成字符的丢失
     open_file_text('french-utf8.txt')#不会出问题，但需注意open的encoding格式，否则会出现乱码
 
+    print('<strong>file encoding打开文件：')
     file_encoding('french-unicode.txt')
     file_encoding('french-mscs.txt')
     file_encoding('french-utf8.txt')
-    write_file('write_test.txt')#以wb状态写文件，不管文件的格式，最终都正确写入文件，并将txt文件格式修改为UTF-8
-    write_file_append('encode_decode_file.txt','zhangasdg')
-    encode_decode_file('encode_decode_file.txt')    
     
+    print('<strong>binary写文件：')
+    write_file(path+'/write-test.txt')#以wb状态写文件，不管文件的格式，最终都正确写入文件，并将txt文件格式修改为UTF-8
+    write_file_append(path+'/append-test.txt','başparmak')        
+
+    print('<strong>文件遍历：')
     path = ['french-utf8.txt']#,'french_mscs.txt']#,'french.txt']
     for i in range(0,len(path)):
         open_file_text(path[i])
