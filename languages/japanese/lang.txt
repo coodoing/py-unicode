@@ -1,0 +1,2 @@
+define('TXT_EMAIL', "メールアドレス")
+
