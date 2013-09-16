@@ -35,18 +35,17 @@ def print_file_line(filename):
             print(line)    
     pass
 
-def print_codecs_file_line(filename):
-    with codecs.open(filename) as file:
-        for line in file:
-            print(line)    
-    pass
-
 def print_file_line_encoding(filename,encoding = 'utf-8'):
     with open(filename,encoding = 'utf-8') as file:
         for line in file:
             print(line)  
     pass
 
+def print_codecs_file_line(filename):
+    with codecs.open(filename) as file:
+        for line in file:
+            print(line)    
+    pass
 
 if __name__ == '__main__':
     ch_str = '中文'
@@ -83,23 +82,30 @@ if __name__ == '__main__':
     except Exception:
         print('<strong>gbk codec decode error')
     print('python长度：')
-    
+
+
+    print('################################################################')
+    print('下面为文件测试数据')
     '''
     encoding = 'utf-8'
     英语目录下，报错；法语目录下，没问题
-    否则, 恰好相反
+    否则，恰好相反
     '''
     dir_path = ['languages/english/languages.php']
     #dir_path = ['languages/english/languages.php','languages/france/languages.php']
     for i in range(len(dir_path)):
         print_file_line(dir_path[i])
+        #print_codecs_file_line(dir_path[i])
 
     dir_path = ['languages/france/languages.php']
+    #dir_path = ['france.txt']
+    #dir_path = ['languages/english/languages.php','languages/france/languages.php']
     for i in range(len(dir_path)):
         print_file_line_encoding(dir_path[i])
         #print_codecs_file_line(dir_path[i])
 
     dir_path = ['languages/english/languages.php']
+    #dir_path = ['languages/english/languages.php','languages/france/languages.php']
     for i in range(len(dir_path)):
         try:
             print_file_line_encoding(dir_path[i])
@@ -107,7 +113,9 @@ if __name__ == '__main__':
             print('<strong>english utf-8 error')
         #print_codecs_file_line(dir_path[i])
 
+    #dir_path = ['languages/france/languages.php']
     dir_path = ['france.txt']
+    #dir_path = ['languages/english/languages.php','languages/france/languages.php']
     for i in range(len(dir_path)):
         try:
             print_file_line(dir_path[i])
@@ -122,3 +130,5 @@ if __name__ == '__main__':
             print_codecs_file_line(dir_path[i])
         except Exception:
             print('<strong>error')
+
+    
