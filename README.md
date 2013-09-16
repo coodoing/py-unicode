@@ -54,7 +54,7 @@ A buffered text stream over a BufferedIOBase binary stream. It inherits TextIOBa
 encoding gives the name of the encoding that the stream will be decoded or encoded with. It 
 defaults to locale.getpreferredencoding().
 
-###2 encode和decode方法
+###3 encode和decode方法
 字符串在Python内部的表示是unicode编码，因此，在做编码转换时，通常需要以unicode作为中间编码，即先将其他编码的字符串解码（decode）成unicode，再从unicode编码（encode）成另一种编码decode的作用是将其他编码的字符串转换成unicode编码，如str1.decode('gb2312')，表示将gb2312编码的字符串str1转换成unicode编码。 encode的作用是将unicode编码转换成其他编码的字符串，如str2.encode('gb2312')，表示将unicode编码的字符串str2转换成gb2312编码。 
 
 因此，转码的时候一定要先搞明白，字符串str是什么编码，然后decode成unicode，然后再encode成其他编码。代码中字符串的默认编码与代码文件本身的编码一致。 
@@ -65,7 +65,7 @@ defaults to locale.getpreferredencoding().
 其转换成其他编码。通常，在没有指定特定的编码方式时，都是使用的系统默认编码创建的代码文件
 
 
-###3 相关代码
+###4 相关代码
 
 python默认编码
 ```
@@ -138,7 +138,7 @@ def write_file_append(filename,string):
 ```
 
 
-###4 参考资料
+###5 参考资料
 * python unicode howto:(unicode codepoints): http://docs.python.org/3/howto/unicode.html
 
 * python unicode&encoding: http://docs.python.org/3.3/library/codecs.html#encodings-and-unicode
