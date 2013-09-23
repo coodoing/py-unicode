@@ -65,6 +65,35 @@ class FileHandler(object):
 
 		pass
 
+	def edit_file(self,filename,str,value):
+
+	 	with open(filename,"rb+") as file:
+	 		end = 0
+	 		lines = []
+	 		for line in file:
+	 			if not line:
+	 				break
+
+	 			elif line.find("?>".encode())!=-1:
+	 				end = 1
+	 				
+	 			elif line.find(value.encode())!=-1:
+	 				edit_str = "define('"+str+"', \""+value+"\")"
+	 				#print(edit_str)
+	 				lines.append(edit_str.encode())
+	 				
+
+	 			else:
+	 		 		lines.append(line)
+
+	 	with open(filename,'wb+') as file:
+	 		for line in lines:
+	 			file.write(line)
+	 		#file.write(str.encode())
+	 		file.write('\n'.encode())
+	 		if end:
+	 			file.write("?>".encode())
+
 	#@staticmethod
 	def write_file(self,filename,str):
 	 	with open(filename,"rb+") as file:
@@ -185,15 +214,62 @@ class LanguageHandler(object):
 		    		try:		    			
 		    			#output = "/encoding/language-test.txt"
 		    			#self.file_handler.write_file("encoding/language-test.txt",output_string)
-		    			self.file_handler.write_file(language_output_files[j],output_string)    
+		    			self.file_handler.write_file(language_output_files[j],output_string)
+		    			
 		    		except Exception:
 		    			raise "write file error"
 		    	else:
-		    		print("Tag '"+self.tag[i-1]+"' is already in file=> "+language_output_files[j]+"!")
+		    		print("Tag '"+self.tag[i-1]+"' is already in file=> "+language_output_files[j]+"!!!")
 
 		    	#for k in range(0,len(new_tags)):
 		    	   	#self.file_handler.write_file("encoding/language-test.txt",output_string)
 	    print("append successful!\n")
+	    return True
+
+	'''
+		edit tag
+	'''
+	def edit_tags(self,tag,value):
+	    data = self.open_excel()
+	    table = data.sheets()[0]
+	    nrows = table.nrows #行数
+	    ncols = table.ncols #列数
+	    
+	    language_output_files = []
+	    for j in range(0,ncols):
+		    lang_str = str(table.cell(0,j)) #获取头文件
+		    lang_str = lang_str.split("'")[1].split("\\")[0]
+		    language_output_file_name = self.output_dir + "/" + self.languages[lang_str]+"/"+self.file_change
+		    language_output_files.append(language_output_file_name)
+        
+	    #注意编码问题
+	    for j in range(0,ncols):
+	    	#flags = 0
+	    	#for j in range(0,ncols):	
+	    		lang_str = table.cell(1,j).value # true value
+		    	#print(lang_str)
+		    	#print("append tag key:"+self.tag[i-1])
+		    	#print("append tag value:"+lang_str.decode("utf-8"))
+		    	#print("append tag:"+output_string)#print(type(output_string))
+		    	#print("output file path:"+language_output_files[j])	    	 	
+
+		    	flags = self.has_tags(language_output_files[j],tag)
+		    	#print(flags)#= self.has_tags(language_output_files[j],self.tag[i-1])
+		    	
+		    	if  flags == 1:
+		    		
+		    		try:		    			
+		    			
+		    			self.file_handler.edit_file(language_output_files[j],tag,value)
+		    			print("Tag '"+tag+"' edit successful in file e=> "+language_output_files[j])#self.file_handler.edit_file(language_output_files[j],tag,value)  
+		    		except BaseException:
+		    			raise "edit file error"
+		    	else:
+		    		print("Tag '"+tag+"' must append to file=> "+language_output_files[j]+"!!!")
+
+		    	#for k in range(0,len(new_tags)):
+		    	   	#self.file_handler.write_file("encoding/language-test.txt",output_string)
+	    print("edit successful!\n")
 	    return True
 
 	'''
@@ -245,6 +321,8 @@ class LanguageHandler(object):
 				new_tags.append(tags[i])		
 		return new_tags
 
+	
+
 	pass
 
 #shutil的备份
@@ -279,6 +357,7 @@ if __name__ == '__main__':
 	#print(lang_handler.get_new_tags('encoding/language-test.txt',tags))
 	#lang_handler.get_languages()
 	#lang_handler.open_excel()
+	lang_handler.edit_tags('TXT_EMAIL','TXT_EMAIL')
 	ret = lang_handler.append_tags()
 	if ret == False:
 		bak.rm()
