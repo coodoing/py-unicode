@@ -23,9 +23,8 @@ class FileBak(object):
 
 
 
-src = 'encoding/languages/'
-dst = 'encoding/tmp/'
-
+#src = 'encoding/languages/'
+#dst = 'encoding/tmp/'
 #if __name__ == '__main__':
 #    print()
 #    bak = FileBak(src,dst)
