@@ -21,8 +21,6 @@ class FileBak(object):
     
     pass
 
-
-
 #src = 'encoding/languages/'
 #dst = 'encoding/tmp/'
 #if __name__ == '__main__':
